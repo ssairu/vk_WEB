@@ -14,7 +14,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_main)
         initRCView()
-
     }
 
     private fun initRCView(){
@@ -22,9 +21,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             recyclerRectangle.layoutManager = GridLayoutManager(this@MainActivity, 3)
             recyclerRectangle.adapter = adapter
             addButton.setOnClickListener {
-                adapter.addRectangle()
-            }
-            button2.setOnClickListener{
                 adapter.addRectangle()
             }
         }
