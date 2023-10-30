@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Hello1</string>
+    <string name="add_button">Добавить прямоугольник</string>
+</resources>
