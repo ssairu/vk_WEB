@@ -7,7 +7,7 @@ import com.example.first_vk_app.databinding.SingleItemBinding
 
 
 class RvAdapter(
-    var count: Int,
+    private var count: Int,
 ) : RecyclerView.Adapter<RvAdapter.ViewHolder>() {
 
     // create an inner class with name ViewHolder
@@ -33,11 +33,12 @@ class RvAdapter(
         with(holder){
             with(position){
                 binding.rectangleText.text = "$this"
-                if (this % 2 == 0){
+                if (this % 2 == 1){
                     binding.rectangleText.setBackgroundColor(Color.CYAN)
                 } else {
                     binding.rectangleText.setBackgroundColor(Color.RED)
                 }
+
             }
         }
     }
@@ -49,6 +50,6 @@ class RvAdapter(
 
     fun addRectangle() {
         count++
-        notifyDataSetChanged()
+        notifyItemInserted(count - 1)
     }
 }
