@@ -36,6 +36,7 @@ def question(request, question_id):
 
 
 def signup(request):
+
     return render(request, 'signup.html')
 
 
