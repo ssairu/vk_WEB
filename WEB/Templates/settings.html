@@ -1,0 +1,44 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+
+{% block maindiv %}
+<div class="container-fluid" style="max-width: 800px;">
+    <form>
+        <fieldset disabled>
+            <h2 class="mb-4 ms-2">Настройки: Sairu</h2>
+            <div class="container mb-3">
+                <label for="loginInput" class="form-label">Login</label>
+                <input type="text" class="form-control" id="loginInput" value="Sairu">
+            </div>
+
+            <div class="container mb-3">
+                <label for="emailInput" class="form-label">Email</label>
+                <input type="email" class="form-control" id="emailInput" value="sairu@mail.ru" required>
+                <div class="invalid-feedback">
+                    Пожалуйста, введите Email
+                </div>
+            </div>
+
+            <div class="container mb-3">
+                <label for="nickNameInput" class="form-label">Имя пользователя</label>
+                <input type="text" class="form-control" id="nickNameInput" value="Sairu" required>
+                <div class="valid-feedback">
+                    Имя свободно!
+                </div>
+                <div class="invalid-feedback">
+                    Пожалуйста, введите имя
+                </div>
+            </div>
+        </fieldset>
+
+        <div class="container mb-3">
+            <h5>Фотография профиля</h5>
+            <img src="https://www.communitieseast.co.uk/wp-content/uploads/2020/12/Blank-Silhouette.jpg"
+                 class="rounded mb-3" style="width: 200px; height: 200px;" alt="...">
+            <input type="file" class="form-control mb-2" aria-label="Прикрепите фотографию" required>
+            <button class="btn btn-primary mb-3" type="submit">Загрузить</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

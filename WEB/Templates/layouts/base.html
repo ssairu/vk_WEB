@@ -1,0 +1,71 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Имя страницы</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="{% static '/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static '/css/styles.css' %}">
+</head>
+<body style="height: 100%;">
+<nav class="navbar navbar-expand-sm bg-primary mb-4" style="min-width: 768px;">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'index' %}">Navbar</a>
+        <div class="navbar-nav" id="navbarNavAltMarkup">
+            <form class="navbar-nav mx-auto mb-2 me-5" role="search">
+                <input class="form-control mx-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-info" type="submit">Search</button>
+            </form>
+            <form class="navbar-nav">
+                <a class="mb-2" href="{% url 'signup' %}">
+                    <button class="btn btn-info mx-2" type="button" style="min-width: 100px;">Sign up</button>
+                </a>
+                <a class="mb-2" href="{% url 'login' %}">
+                    <button class="btn btn-sm btn-outline-dark" type="button" style="min-width: 80px;">Log in</button>
+                </a>
+            </form>
+        </div>
+    </div>
+
+</nav>
+<div class="container-fluid row mb-5" style="min-width: 768px;">
+    <div class="col-9">
+        {% block maindiv %}
+
+        {% endblock %}
+    </div>
+    <div class="col-3">
+        <div class="container-fluid">
+            <h4 class="my-4">Популярные теги</h4>
+            <a href="#"
+               class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover me-3 fs-5">Go</a>
+            <a href="#"
+               class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover me-3 fs-5">Kotlin</a>
+            <a href="#"
+               class="link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover me-3 fs-5">Android</a>
+            <a href="#"
+               class="link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover me-3 fs-5">Danger</a>
+            <a href="#"
+               class="link-warning link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover me-3 fs-5">Array</a>
+            <a href="#"
+               class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover me-3 fs-5">Info</a>
+            <a href="#"
+               class="link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover me-3 fs-5">Stack</a>
+        </div>
+        <h4 class="my-4">Лучшие участники</h4>
+
+    </div>
+</div>
+
+<!--<footer class="footer">-->
+<!--    <div class="container">-->
+<!--        <span class="text">Penkin Artyom</span>-->
+<!--    </div>-->
+<!--</footer>-->
+</body>
+</html>

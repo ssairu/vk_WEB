@@ -1,0 +1,33 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+
+{% block maindiv %}
+<div class="container-fluid" style="max-width: 1000px;">
+    <form class="was-validated">
+        <h2 class="mb-4 ms-2">Вход</h2>
+        <div class="container mb-3">
+            <label for="loginInput" class="form-label">Login</label>
+            <input type="text" class="form-control" id="loginInput" required>
+            <div class="invalid-feedback">
+                Пожалуйста, введите логин
+            </div>
+        </div>
+
+        <div class="container mb-4">
+            <label for="passwordRegisterInput" class="form-label">Пароль</label>
+            <input type="password" class="form-control" id="passwordRegisterInput" required>
+            <div class="valid-feedback">
+                Пароль введен
+            </div>
+            <div class="invalid-feedback">
+                Пожалуйста, введите пароль
+            </div>
+        </div>
+
+        <button class="btn btn-primary px-4 mb-3 ms-2" type="submit">Войти</button>
+        <a href="{% url 'signup' %}" class="ms-4">Создать аккаунт</a>
+
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+
+{% block maindiv %}
+<div class="container-fluid" style="max-width: 1000px;">
+    <form class="was-validated">
+        <h2 class="mb-4 ms-2">Новый вопрос</h2>
+        <div class="container mb-3">
+            <h5 class="mb-2">Задайте ваш вопрос</h5>
+            <input type="text" class="form-control" id="titleInput" required>
+            <div class="invalid-feedback">
+                Пожалуйста, введите заголовок вопроса
+            </div>
+        </div>
+
+        <div class="container mb-3">
+            <h5 class="mb-2">Задайте ваш вопрос</h5>
+            <textarea class="form-control mb-3" id="questionTextarea" style="min-height: 250px;"
+                      placeholder="Введите свой ответ здесь..." required></textarea>
+        </div>
+
+        <div class="container mb-3">
+            <h5 class="mb-2">Теги к вопросу</h5>
+            <input type="text" class="form-control" id="tagInput"
+                   placeholder="tag1, tag2, tag3..." required>
+            <div class="invalid-feedback">
+                Пожалуйста, введите хотя-бы 1 тег к вопросу
+            </div>
+        </div>
+
+        <button class="btn btn-primary mb-3 ms-2" type="submit">Задать вопрос!</button>
+    </form>
+</div>
+
+{% endblock %}
