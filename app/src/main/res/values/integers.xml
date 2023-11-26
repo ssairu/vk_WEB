@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="LANDSCAPE_COLS">4</integer>
+    <integer name="PORTRAIT_COLS">2</integer>
+    <integer name="PER_PAGE_ITEMS">25</integer>
+</resources>

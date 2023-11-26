@@ -11,7 +11,6 @@ import com.example.first_vk_app.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var rvAdapter: RvAdapter
-    private var count = 6
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,11 +19,12 @@ class MainActivity : AppCompatActivity() {
 
         val layoutManager: RecyclerView.LayoutManager =
             if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            GridLayoutManager(this, 4)
-        } else {
-            GridLayoutManager(this, 3)
-        }
+                GridLayoutManager(this, resources.getInteger(R.integer.LANDSCAPE_COLS))
+            } else {
+                GridLayoutManager(this, resources.getInteger(R.integer.PORTRAIT_COLS))
+            }
         binding.recyclerRectangle.layoutManager = layoutManager
+        var count = resources.getInteger(R.integer.PER_PAGE_ITEMS)
 
         savedInstanceState?.let { bundle ->
             count = bundle.getInt("COUNT_RECT")
