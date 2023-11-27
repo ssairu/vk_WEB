@@ -7,8 +7,10 @@ import com.example.first_vk_app.databinding.SingleItemBinding
 
 
 class RvAdapter(
-    private var count: Int,
+    private val pictures: MutableList<PictureItem>,
 ) : RecyclerView.Adapter<RvAdapter.ViewHolder>() {
+
+
 
     // create an inner class with name ViewHolder
     // It takes a view argument, in which pass the generated class of single_item.xml
@@ -31,13 +33,13 @@ class RvAdapter(
     // not setting any image data to view
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         with(holder){
-            with(position){
-                binding.rectangleText.text = "$this"
-                if (this % 2 == 1){
-                    binding.rectangleText.setBackgroundColor(Color.CYAN)
-                } else {
-                    binding.rectangleText.setBackgroundColor(Color.RED)
-                }
+            with(pictures[position]){
+                binding.rectangleText.text = this.name
+//                if (this % 2 == 1){
+//                    binding.rectangleText.setBackgroundColor(Color.CYAN)
+//                } else {
+//                    binding.rectangleText.setBackgroundColor(Color.RED)
+//                }
 
             }
         }
@@ -45,11 +47,19 @@ class RvAdapter(
 
     // return the size of languageList
     override fun getItemCount(): Int {
-        return count
+        return pictures.size
     }
 
     fun addRectangle() {
-        count++
-        notifyItemInserted(count - 1)
+        pictures.add(PictureItem(itemCount, "name", "path", "date"))
+        notifyItemInserted(itemCount - 1)
+    }
+
+    fun upDateList(newPictures: MutableList<PictureItem>) {
+
+        for (i in 0..<newPictures.size){
+            pictures[i] = (newPictures[i])
+        }
+        notifyItemRangeChanged(0, itemCount - 1)
     }
 }
