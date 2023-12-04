@@ -9,13 +9,10 @@ QUESTIONS = [
         'id': i,
         'title': f'Question {i}',
         'content': f'A little questiion about something {i}',
-        'answers': range(5)
+        'answers': range(5),
+        'tags': [f'tag_{i}', f'tag_{i + 1}', f'tag_{i + 2}'],
     } for i in range(10)
 ]
-
-
-def base(request):
-    return render(request, 'base.html')
 
 
 def paginate(objects, page, per_page):
@@ -25,9 +22,21 @@ def paginate(objects, page, per_page):
     paginator = Paginator(objects, per_page)
     return paginator.page(temppage)
 
+def find_tag(questions, tag):
+    res = []
+    for q in questions:
+        for t in q['tags']:
+            if t == tag:
+                res.append(q)
+    return res
+
+
+def base(request):
+    return render(request, 'base.html')
+
 
 def index(request):
-    #page = request.GET.get('page', 1)
+    # page = request.GET.get('page', 1)
     return render(request, 'index.html', {'questions': paginate(QUESTIONS, 1, 5)})
 
 
@@ -36,7 +45,6 @@ def question(request, question_id):
 
 
 def signup(request):
-
     return render(request, 'signup.html')
 
 
@@ -50,3 +58,14 @@ def ask(request):
 
 def settings(request):
     return render(request, 'settings.html')
+
+
+def hot(request):
+    return render(request, 'hot.html', {'questions': paginate(QUESTIONS, 1, 5)})
+
+
+def tag(request, tag_name):
+    return render(request, 'tag.html',
+                  {
+                      'questions': paginate(find_tag(QUESTIONS, tag_name), 1, 5),
+                   'tag': tag_name})

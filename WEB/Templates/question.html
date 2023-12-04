@@ -36,10 +36,13 @@
                 <h2>{{ question.title }}</h2>
                 <p class="card-text">{{ question.content }}</p>
                 <div>
+                    <h6>
                     Tags:
-                    <a href="#">WEB</a>
-                    <a href="#">python</a>
-                    <a href="#">VK</a>
+                    {% for t in question.tags %}
+                        <a href=" {% url 'tag' t %} ">{{ t }}</a>
+                        ,
+                    {% endfor %}
+                    </h6>
                 </div>
             </div>
         </div>
