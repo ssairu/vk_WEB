@@ -9,18 +9,19 @@ QUESTIONS = [
         'id': i,
         'title': f'Question {i}',
         'content': f'A little questiion about something {i}',
-        'answers': range(5),
+        'answers': range(i*3),
         'tags': [f'tag_{i}', f'tag_{i + 1}', f'tag_{i + 2}'],
-    } for i in range(10)
+    } for i in range(26)
 ]
 
 
-def paginate(objects, page, per_page):
+def paginate(objects, page: str, per_page):
     temppage = 1
-    if int == type(page):
-        temppage = page
+    if page.isdigit():
+        temppage = int(page)
     paginator = Paginator(objects, per_page)
     return paginator.page(temppage)
+
 
 def find_tag(questions, tag):
     res = []
@@ -36,12 +37,16 @@ def base(request):
 
 
 def index(request):
-    # page = request.GET.get('page', 1)
-    return render(request, 'index.html', {'questions': paginate(QUESTIONS, 1, 5)})
+    page = request.GET.get('page', '1')
+    page_obj = paginate(QUESTIONS, page, 5)
+    return render(request, 'index.html', {'page_obj': page_obj})
 
 
 def question(request, question_id):
-    return render(request, 'question.html', {'question': QUESTIONS[question_id]})
+    page_answ = request.GET.get('page', '1')
+    page_obj = paginate(QUESTIONS[question_id]['answers'], page_answ, 5)
+    return render(request, 'question.html', {'question': QUESTIONS[question_id],
+                                             'page_obj': page_obj})
 
 
 def signup(request):
@@ -61,11 +66,16 @@ def settings(request):
 
 
 def hot(request):
-    return render(request, 'hot.html', {'questions': paginate(QUESTIONS, 1, 5)})
+    page = request.GET.get('page', '1')
+    page_obj = paginate(QUESTIONS, page, 5)
+    return render(request, 'hot.html', {'page_obj': page_obj})
 
 
 def tag(request, tag_name):
+    page = request.GET.get('page', '1')
+    page_obj = paginate(find_tag(QUESTIONS, tag_name), page, 5)
     return render(request, 'tag.html',
                   {
-                      'questions': paginate(find_tag(QUESTIONS, tag_name), 1, 5),
-                   'tag': tag_name})
+                      'page_obj': page_obj,
+                      'tag': tag_name
+                  })

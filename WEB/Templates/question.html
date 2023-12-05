@@ -50,9 +50,11 @@
 
     <h3 class="ms-2 mb-3">Ответы</h3>
 
-    {% for i in question.answers %}
+    {% for answer in page_obj %}
     {% include 'components/answer_item.html' %}
     {% endfor %}
+
+    {% include 'components/paginator.html' %}
 
     <div class="container">
         <h4 class="mb-2">Дайте свой ответ!</h4>
