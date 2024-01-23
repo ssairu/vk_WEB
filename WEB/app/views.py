@@ -15,11 +15,11 @@ QUESTIONS = [
 ]
 
 
-def paginate(objects, page: str, per_page):
+def paginate(objects_list, request, per_page=10):
     temppage = 1
-    if page.isdigit():
-        temppage = int(page)
-    paginator = Paginator(objects, per_page)
+    if request.isdigit():
+        temppage = int(request)
+    paginator = Paginator(objects_list, per_page)
     return paginator.page(temppage)
 
 
