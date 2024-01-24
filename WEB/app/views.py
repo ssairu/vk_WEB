@@ -1,35 +1,21 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
+
 from django.http import HttpResponse
+
+from app.models import Question, Answer
 
 # Create your views here.
 
-QUESTIONS = [
-    {
-        'id': i,
-        'title': f'Question {i}',
-        'content': f'A little questiion about something {i}',
-        'answers': range(i*3),
-        'tags': [f'tag_{i}', f'tag_{i + 1}', f'tag_{i + 2}'],
-    } for i in range(26)
-]
-
-
 def paginate(objects_list, request, per_page=10):
-    temppage = 1
-    if request.isdigit():
-        temppage = int(request)
-    paginator = Paginator(objects_list, per_page)
-    return paginator.page(temppage)
-
-
-def find_tag(questions, tag):
-    res = []
-    for q in questions:
-        for t in q['tags']:
-            if t == tag:
-                res.append(q)
-    return res
+    result = None
+    try:
+        page = request.GET.get('page', 1)
+        paginator = Paginator(objects_list, per_page)
+        result = paginator.page(page)
+    except Exception as e:
+        print(e)
+    return result
 
 
 def base(request):
@@ -37,15 +23,14 @@ def base(request):
 
 
 def index(request):
-    page = request.GET.get('page', '1')
-    page_obj = paginate(QUESTIONS, page, 5)
+    page_obj = paginate(Question.objects.new(), request, 5)
     return render(request, 'index.html', {'page_obj': page_obj})
 
 
 def question(request, question_id):
-    page_answ = request.GET.get('page', '1')
-    page_obj = paginate(QUESTIONS[question_id]['answers'], page_answ, 5)
-    return render(request, 'question.html', {'question': QUESTIONS[question_id],
+    item = get_object_or_404(Question, id=question_id)
+    page_obj = paginate(item.answers, request, 5)
+    return render(request, 'question.html', {'question': item,
                                              'page_obj': page_obj})
 
 
@@ -66,14 +51,12 @@ def settings(request):
 
 
 def hot(request):
-    page = request.GET.get('page', '1')
-    page_obj = paginate(QUESTIONS, page, 5)
+    page_obj = paginate(Question.objects.hot(), request, 5)
     return render(request, 'hot.html', {'page_obj': page_obj})
 
 
 def tag(request, tag_name):
-    page = request.GET.get('page', '1')
-    page_obj = paginate(find_tag(QUESTIONS, tag_name), page, 5)
+    page_obj = paginate(Question.objects.by_tag(tag_name), request, 5)
     return render(request, 'tag.html',
                   {
                       'page_obj': page_obj,
