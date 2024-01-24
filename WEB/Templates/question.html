@@ -1,5 +1,6 @@
 {% extends "layouts/base.html" %}
 {% load static %}
+{% load django_bootstrap5 %}
 
 
 {% block maindiv %}
@@ -37,11 +38,11 @@
                 <p class="card-text">{{ question.content }}</p>
                 <div>
                     <h6>
-                    Tags:
-                    {% for t in question.tags.all %}
+                        Tags:
+                        {% for t in question.tags.all %}
                         <a href=" {% url 'tag' t %} ">{{ t }}</a>
                         ,
-                    {% endfor %}
+                        {% endfor %}
                     </h6>
                 </div>
             </div>
@@ -56,11 +57,41 @@
 
     {% include 'components/paginator.html' %}
 
-    <div class="container">
-        <h4 class="mb-2">Дайте свой ответ!</h4>
-        <textarea class="form-control mb-3" id="questionTextarea" style="min-height: 200px;"
-                  placeholder="Введите свой ответ здесь..."></textarea>
-        <button class="btn btn-primary mb-3" type="submit">Дать ответ!</button>
+    {% if form.non_field_errors %}
+    <div class="error-message">
+        {% for error in form.non_field_errors %}
+        <span>{{ error }}</span>
+        {% endfor %}
     </div>
+    {% endif %}
+
+    <div class="container">
+        <div class="row my-5">
+            <div class="col-md-12">
+                <form action="{% url 'question' question_id=question.id %}" method="post" class="form">
+                    {% csrf_token %}
+
+
+                    {% if form.errors %}
+                    {% for field in form %}
+                    <div class="error-message">
+                        {% for error in field.errors %}
+                        <span class="text-danger">{{ error|escape }}</span>
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+
+                    <h4 class="mb-2">Дайте свой ответ!</h4>
+                    <div class="row">
+                        {{ form.answer }}
+                    </div>
+                    <button class="btn btn-primary my-3" type="submit">Дать ответ!</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
 </div>
 {% endblock %}

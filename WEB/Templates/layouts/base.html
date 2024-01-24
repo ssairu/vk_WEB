@@ -22,12 +22,22 @@
                 <button class="btn btn-info" type="submit">Search</button>
             </form>
             <form class="navbar-nav">
+
+                {% if request.user.is_authenticated %}
+                <a class="username me-4 text-black" href="" >{{ user.username }}</a>
+                <div class="row-cols-3">
+                    <a href="{% url 'settings' %}" style="color:#fff; margin-right: 8px;">settings</a>
+                    <a href="{% url 'logout' %}" style="color:#fff ">log out</a>
+                </div>
+                {% else %}
                 <a class="mb-2" href="{% url 'signup' %}">
                     <button class="btn btn-info mx-2" type="button" style="min-width: 100px;">Sign up</button>
                 </a>
                 <a class="mb-2" href="{% url 'login' %}">
-                    <button class="btn btn-sm btn-outline-dark" type="button" style="min-width: 80px;">Log in</button>
+                    <button class="btn btn-sm btn-outline-dark" type="button" style="min-width: 80px;">Log in
+                    </button>
                 </a>
+                {% endif %}
             </form>
         </div>
     </div>
